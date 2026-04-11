@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>taxVA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- MapLibre GL -->
+    <link href="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css" rel="stylesheet" />
+    <script src="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js"></script>
+    <!-- Deck.GL -->
+    <script src="https://unpkg.com/@deck.gl/core@8.9.36/dist.min.js"></script>
+    <script src="https://unpkg.com/@deck.gl/layers@8.9.36/dist.min.js"></script>
+    <script src="https://unpkg.com/@deck.gl/mapbox@8.9.36/dist.min.js"></script>
+</head>
+<body>
+
+<div id="notification"></div>
+
+<div id="app">
+
+    <!-- ── LEFT PANEL ──────────────────────────────────────── -->
+    <div id="left-panel">
+
+        <div id="dataset-bar">
+            <span class="dataset-label">Datasets:</span>
+            <button class="dataset-btn active" data-dataset="fox">Foxes</button>
+            <button class="dataset-btn" data-dataset="hurricanes">Hurricanes</button>
+            <button class="dataset-btn" data-dataset="ais">AIS</button>
+        </div>
+
+        <div id="taxonomy-panel">
+            <div class="card">
+                <div class="card-header">Taxonomy
+                    <span class="info-icon" data-info="Displays the hierarchical classification of movement behaviours. Each node represents a group (Speed, Acceleration, Curvature, Indentation). Click a leaf node to select a combination and load it into the Heatmap and Zone Explorer.">i</span>
+                </div>
+                <div class="card-body" id="taxonomy-body"></div>
+            </div>
+        </div>
+
+        <div id="heatmap-panel">
+            <div class="card">
+                <div class="card-header">Heatmap
+                    <span class="info-icon" data-info="Shows a matrix of pairwise similarity between behaviour combinations. Each cell represents a zone pair. Click a cell to select a combination and populate the Zone Explorer with its trajectories.">i</span>
+                </div>
+                <div class="card-body" id="heatmap-body"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ── CENTRE PANEL ────────────────────────────────────── -->
+    <div id="center-panel">
+
+        <select id="view-switcher">
+            <option value="3D">3D View</option>
+            <option value="2D">2D View</option>
+        </select>
+
+        <div id="view-3d">
+            <div id="map-slot-1" class="map-slot">
+                <span id="map-label-1" class="map-label">—</span>
+                <div id="map-1"></div>
+            </div>
+            <div id="map-slot-2" class="map-slot">
+                <span id="map-label-2" class="map-label">—</span>
+                <div id="map-2"></div>
+            </div>
+        </div>
+
+        <div id="maps-row">
+            <div id="map-slot-1-2d" class="map-slot">
+                <span id="map-label-1-2d" class="map-label" style="left:8px;top:6px;">—</span>
+                <div id="map-1-2d"></div>
+            </div>
+            <div id="map-slot-2-2d" class="map-slot">
+                <span id="map-label-2-2d" class="map-label" style="right:8px;top:6px;">—</span>
+                <div id="map-2-2d"></div>
+            </div>
+        </div>
+        <div id="heatmap-2d"></div>
+
+    </div>
+
+    <!-- ── RIGHT PANEL ─────────────────────────────────────── -->
+    <div id="right-panel">
+
+        <div id="zone-explorer-panel">
+            <div class="card">
+                <div class="card-header">
+                    Zone Explorer
+                    <span class="info-icon" data-info="Scatter plot of episodes in the selected combination. Click a point to assign it as Trajectory A (first click) or B (second click) and load it into the map. Use the zone selectors to filter which zones are compared.">i</span>
+                </div>
+                <div class="card-body" id="zone-explorer-body">
+                    <span class="placeholder-text">Select a combination in the Taxonomy or Heatmap to load the Zone Explorer.</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="feature-importance-panel">
+            <div class="card">
+                <div class="card-header">Feature Importance
+                    <span class="info-icon" data-info="Lists movement features ranked by their discriminative power for the selected combination. Click a feature to highlight it across all map views using a yellow-to-red colour scale.">i</span>
+                </div>
+                <div class="card-body" id="feature-importance-body">
+                    <span class="placeholder-text">Select a combination in the Taxonomy or Heatmap to see feature importance.</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Libraries -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+<!-- MVC: controllers first (AppController has no dependencies) -->
+<script src="{{ url_for('static', filename='js/controllers/AppController.js') }}"></script>
+
+<!-- MVC: views (depend only on D3) -->
+<script src="{{ url_for('static', filename='js/views/TaxonomyView.js') }}"></script>
+<script src="{{ url_for('static', filename='js/views/HeatmapView.js') }}"></script>
+<script src="{{ url_for('static', filename='js/views/ZoneExplorerView.js') }}"></script>
+<script src="{{ url_for('static', filename='js/views/FeatureImportanceView.js') }}"></script>
+
+<!-- MVC: analysis controller (depends on views + AppController) -->
+<script src="{{ url_for('static', filename='js/controllers/AnalysisController.js') }}"></script>
+
+<!-- MVC: map view + controller -->
+<script src="{{ url_for('static', filename='js/views/MapView.js') }}"></script>
+<script src="{{ url_for('static', filename='js/views/Heatmap2DView.js') }}"></script>
+<script src="{{ url_for('static', filename='js/controllers/MapController.js') }}"></script>
+
+<!-- Entry point -->
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+</html>

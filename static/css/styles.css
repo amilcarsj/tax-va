@@ -1,0 +1,329 @@
+/* ── Reset ────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: system-ui, sans-serif;
+}
+
+/* ── Root layout: three-column flex row ──────────────────── */
+#app {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+/* ── Left panel (25%) ────────────────────────────────────── */
+#left-panel {
+    flex: 0 0 25%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 2px 0 6px rgba(0,0,0,0.35);
+    z-index: 10;
+}
+
+#taxonomy-panel {
+    flex: 0 0 50%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#heatmap-panel {
+    flex: 0 0 50%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* ── Centre map area (flex 1) ────────────────────────────── */
+#center-panel {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* View-mode switcher floating above centre */
+#view-switcher {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    background: #0080ff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 4px 10px;
+    font-size: 13px;
+    cursor: pointer;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.5);
+    outline: none;
+    width: 110px;
+}
+
+/* 3D mode: two map panels stacked vertically, full height */
+#view-3d {
+    flex: 1 1 0;
+    min-height: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.map-slot {
+    flex: 1 1 0;
+    min-height: 0;
+    position: relative;
+    border: 3px solid #979797;
+}
+
+.map-slot canvas,
+.map-slot > div {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.map-label {
+    position: absolute;
+    z-index: 10;
+    font-weight: 700;
+    font-size: clamp(13px, 1.4vw, 19px);
+    background: rgba(255,255,255,0.7);
+    padding: 2px 7px;
+    border-radius: 3px;
+}
+#map-label-1 { top: 6px; right: 8px; }
+#map-label-2 { top: 6px; left: 8px; }
+
+/* 2D mode: heatmap SVG above, maps side by side below */
+#heatmap-2d {
+    width: 100%;
+    height: 30%;
+    border-top: 5px solid #888;
+    display: none;          /* shown by MapController in 2D mode */
+    align-items: center;
+    justify-content: center;
+}
+
+#maps-row {
+    display: none;          /* shown by MapController in 2D mode */
+    flex-direction: row;
+    width: 100%;
+    height: 70%;
+}
+
+#maps-row .map-slot {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+/* ── Right panel (25%) ───────────────────────────────────── */
+#right-panel {
+    flex: 0 0 25%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: -2px 0 6px rgba(0,0,0,0.35);
+    z-index: 10;
+}
+
+#zone-explorer-panel {
+    flex: 0 0 50%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#feature-importance-panel {
+    flex: 1 1 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* ── Cards (Bootstrap-compatible, framework-free) ────────── */
+.card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid #dee2e6;
+}
+
+.card-header {
+    flex: 0 0 auto;
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    padding: 6px 12px;
+    font-weight: 600;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    gap: 8px;
+}
+
+.card-body {
+    flex: 1 1 0;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+}
+
+/* Taxonomy and heatmap card-bodies must fill 100% so the SVG can measure them */
+#taxonomy-body,
+#heatmap-body,
+#zone-explorer-body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    align-items: flex-start;
+    justify-content: flex-start;
+    overflow: hidden;
+}
+
+/* Heatmap SVG is fixed-size — centre it when shorter than the card body */
+#heatmap-body {
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Feature importance panel scrolls vertically */
+#feature-importance-panel .card-body {
+    overflow-y: auto;
+    overflow-x: hidden;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 4px;
+}
+
+/* ── Info icon ───────────────────────────────────────────── */
+.info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background: #0080ff;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    font-style: italic;
+    cursor: default;
+    flex-shrink: 0;
+    user-select: none;
+    line-height: 1;
+}
+
+/* Fixed-position tooltip div injected by JS */
+#info-tooltip {
+    position: fixed;
+    background: rgba(20,20,20,0.92);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.55;
+    padding: 10px 14px;
+    border-radius: 7px;
+    max-width: 280px;
+    z-index: 99999;
+    pointer-events: none;
+    display: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.45);
+}
+
+/* ── Placeholder text ────────────────────────────────────── */
+.placeholder-text {
+    color: #999;
+    font-style: italic;
+    font-size: 13px;
+    text-align: center;
+    padding: 12px;
+}
+
+/* ── Dataset selector bar ───────────────────────────────── */
+#dataset-bar {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: row;
+    background: #f0f0f0;
+    border-bottom: 1px solid #dee2e6;
+    padding: 4px 6px;
+    gap: 5px;
+}
+
+.dataset-label {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #555;
+    white-space: nowrap;
+    padding: 0 2px;
+}
+
+.dataset-btn {
+    flex: 1;
+    padding: 3px 0;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    background: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #555;
+    transition: background 0.15s, color 0.15s;
+}
+
+.dataset-btn.active {
+    background: #0080ff;
+    color: #fff;
+    border-color: #0067cc;
+}
+
+.dataset-btn:not(.active):hover {
+    background: #e4e4e4;
+}
+
+/* ── Notification bar ────────────────────────────────────── */
+#notification {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -120px);
+    width: min(480px, 80vw);
+    background: indianred;
+    color: #fff;
+    font-size: clamp(14px, 2vw, 22px);
+    font-weight: 600;
+    text-align: center;
+    padding: 12px;
+    border-bottom: 4px solid #000;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.5);
+    border-radius: 0 0 6px 6px;
+    z-index: 9999;
+    transition: transform 0.45s ease;
+}
