@@ -1,15 +1,14 @@
-# [Project Title Placeholder]
+# TaxVA: A Taxonomy-Driven Visual Analytics System for Exploring Unlabeled Trajectory Data
 
-[Short project description placeholder: explain what the tool does, who it is for, and what kind of data it visualizes.]
+Analyzing unlabeled movement data remains challenging, particularly when behavior emerges from complex interactions among high-dimensional features. We present TaxVA, a visual analytics system for exploratory analysis of spatio-temporal trajectories through a taxonomy-driven workflow. The taxonomy organizes movement variables into semantically meaningful groups, enabling progressive exploration of behavioral patterns. TaxVA integrates taxonomy-guided feature selection, node-specific outlier detection, zone-of-interest partitioning, supervised feature-importance analysis, and coordinated spatial visualizations. Through a use case with GPS-tracked animal movement data, we demonstrate how TaxVA supports the identification, explanation, and contextualization of movement behaviors without ground-truth labels, facilitating interpretable analysis of complex spatio-temporal data.
 
 ## Repository Status
 
-[Optional placeholder: add a short note about the current stage of the project, such as prototype, research tool, or work in progress.]
+Research Tool. 
 
 ## Requirements
 
-- Python [version placeholder, for example 3.11]
-- [Any OS or system dependency placeholder]
+- Python 3.11.X
 
 ## Installation
 
@@ -46,9 +45,9 @@ pip install -r requirements.txt
 
 ## Dataset Setup
 
-[Dataset download placeholder: add the public link here.]
+Download the datasets folder [here:](https://drive.google.com/file/d/1b71AnGo2R_4d0AimjH5_pwqxq29X7Uj5/view?usp=sharing)  
 
-[Dataset instructions placeholder: explain where users should place the downloaded files, for example inside `datasets/`, and mention any required folder structure or file names.]
+After unzipping the file above, place the folders inside `datasets/`. The resulting folder structure is the one below:
 
 ## Run the Application
 
@@ -60,16 +59,55 @@ The server starts on [http://localhost:8000](http://localhost:8000).
 
 ## Project Structure
 
-- `app.py` - [placeholder]
-- `controllers/` - [placeholder]
-- `views/` - [placeholder]
-- `static/` - [placeholder]
-- `datasets/` - [placeholder: ignored from Git, users download separately]
+```text
+tax-va/
+├── app.py
+├── requirements.txt
+├── README.md
+├── controllers/
+│   ├── __init__.py
+│   └── dataset_controller.py
+├── static/
+│   ├── css/
+│   │   └── styles.css
+│   └── js/
+│       ├── main.js
+│       ├── controllers/
+│       │   ├── AnalysisController.js
+│       │   ├── AppController.js
+│       │   └── MapController.js
+│       └── views/
+│           ├── FeatureImportanceView.js
+│           ├── Heatmap2DView.js
+│           ├── HeatmapView.js
+│           ├── MapView.js
+│           ├── TaxonomyView.js
+│           └── ZoneExplorerView.js
+├── views/
+│   └── templates/
+│       └── index.html
+└── datasets/
+    ├── ais/
+    │   ├── geojson/
+    │   ├── ais-outlier-scores.csv
+    │   ├── ais-point-feats.csv
+    │   └── ais-traj-feats.csv
+    ├── fox/
+    │   ├── geojson/
+    │   ├── fox-outlier-scores.csv
+    │   ├── fox-point-feats.csv
+    │   └── fox-traj-feats.csv
+    └── hurricanes/
+        ├── geojson/
+        ├── hurricanes-outlier-scores.csv
+        ├── hurricanes-point-feats.csv
+        └── hurricanes-traj-feats.csv
+```
 
-## Notes for Users
 
-[Placeholder: add anything users should know before running the project, such as dataset size, expected startup time, browser recommendations, or known limitations.]
 
 ## Citation / Acknowledgment
+
+To use, modify or extend this system, you must cite the following publication. 
 
 [Placeholder: add citation, authorship, institution, or acknowledgment information if needed.]
