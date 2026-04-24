@@ -112,4 +112,4 @@ tax-va/
 
 To use, modify or extend this system, you must cite the following publication. 
 
-Cozzetti, I. A. H., Powley, B., Martins, R. M., Kerren, A., Linhares, C. D. G., & Soares, A. (2026). TaxVA: A taxonomy-driven visual analytics system for exploring unlabeled trajectory data.
+Cozzetti, I. A. H., Powley, B., Martins, R. M., Kerren, A., Linhares, C. D. G., & Soares, A. (2026). TaxVA: A taxonomy-driven visual analytics system for exploring unlabeled trajectory data. Under Review in MDM 2026 (Demo Track)
