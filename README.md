@@ -4,6 +4,12 @@ Analyzing unlabeled movement data remains challenging, particularly when behavio
 
 ![Alt text](TaxVA-Teaser.png)
 
+## Citation / Acknowledgment
+
+To use, modify or extend this system, you must cite the following publication. 
+
+Cozzetti, I. A. H., Powley, B., Martins, R. M., Kerren, A., Linhares, C. D. G., & Soares, A. (2026). TaxVA: A taxonomy-driven visual analytics system for exploring unlabeled trajectory data. Under Review in MDM 2026 (Demo Track)
+
 ## Repository Status
 
 Research Tool. 
@@ -108,8 +114,3 @@ tax-va/
 
 
 
-## Citation / Acknowledgment
-
-To use, modify or extend this system, you must cite the following publication. 
-
-Cozzetti, I. A. H., Powley, B., Martins, R. M., Kerren, A., Linhares, C. D. G., & Soares, A. (2026). TaxVA: A taxonomy-driven visual analytics system for exploring unlabeled trajectory data. Under Review in MDM 2026 (Demo Track)
