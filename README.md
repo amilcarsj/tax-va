@@ -2,6 +2,8 @@
 
 Analyzing unlabeled movement data remains challenging, particularly when behavior emerges from complex interactions among high-dimensional features. We present TaxVA, a visual analytics system for exploratory analysis of spatio-temporal trajectories through a taxonomy-driven workflow. The taxonomy organizes movement variables into semantically meaningful groups, enabling progressive exploration of behavioral patterns. TaxVA integrates taxonomy-guided feature selection, node-specific outlier detection, zone-of-interest partitioning, supervised feature-importance analysis, and coordinated spatial visualizations. Through a use case with GPS-tracked animal movement data, we demonstrate how TaxVA supports the identification, explanation, and contextualization of movement behaviors without ground-truth labels, facilitating interpretable analysis of complex spatio-temporal data.
 
+![Alt text](TaxVA-Teaser.png)
+
 ## Repository Status
 
 Research Tool. 
@@ -110,4 +112,4 @@ tax-va/
 
 To use, modify or extend this system, you must cite the following publication. 
 
-[Placeholder: add citation, authorship, institution, or acknowledgment information if needed.]
+Cozzetti, I. A. H., Powley, B., Martins, R. M., Kerren, A., Linhares, C. D. G., & Soares, A. (2026). TaxVA: A taxonomy-driven visual analytics system for exploring unlabeled trajectory data.
